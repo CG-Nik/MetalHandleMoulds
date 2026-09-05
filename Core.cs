@@ -1,12 +1,7 @@
 ﻿using Alta;
-using Alta.Inventory;
-using Alta.Networking;
-using Alta.Networking.Servers;
 using CustomRecipesAPI;
-using HarmonyLib;
 using MelonLoader;
 using MelonLoader.Utils;
-using System.Reflection;
 using UnityEngine;
 
 [assembly: MelonInfo(typeof(MetalHandleMoulds.Core), "MetalHandleMoulds", "1.0.0", "CGNik", null)]
@@ -19,10 +14,10 @@ namespace MetalHandleMoulds
         public override void OnInitializeMelon()
         {
             LoggerInstance.Msg("Initialized.");
-            CustomRecipesAPI.Core.SetUpMoulds += SetUpMoulds;
+            CustomRecipesAPI.Core.SetUpRecipes += SetUpRecipes;
         }
 
-        private void SetUpMoulds()
+        private void SetUpRecipes()
         {
             AssetBundle assetBundle = AssetBundle.LoadFromFile(Path.Combine(MelonEnvironment.ModsDirectory, "MetalHandleMoulds/AssetBundles/!metalhandlemoulds"));
             MouldDefinition mouldDefinition_handleFist = assetBundle.LoadAsset<MouldDefinition>("Handle Fist Mould.asset");
