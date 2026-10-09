@@ -1,8 +1,8 @@
 ﻿using Alta;
 using CustomRecipesAPI;
 using MelonLoader;
-using MelonLoader.Utils;
 using UnityEngine;
+using System.Reflection;
 
 [assembly: MelonInfo(typeof(MetalHandleMoulds.Core), "MetalHandleMoulds", "1.0.0", "CGNik", null)]
 [assembly: MelonGame("Alta", "A Township Tale")]
@@ -19,7 +19,12 @@ namespace MetalHandleMoulds
 
         private void SetUpRecipes()
         {
-            AssetBundle assetBundle = AssetBundle.LoadFromFile(Path.Combine(MelonEnvironment.ModsDirectory, "MetalHandleMoulds/AssetBundles/!metalhandlemoulds"));
+            AssetBundle assetBundle;
+            using (System.IO.Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("MetalHandleMoulds.AssetBundles.!metalhandlemoulds"))
+            {
+                assetBundle = AssetBundle.LoadFromStream(stream);
+            }
+
             MouldDefinition mouldDefinition_handleFist = assetBundle.LoadAsset<MouldDefinition>("Handle Fist Mould.asset");
             MouldItemComponent mouldItemComponent_handleFist = assetBundle.LoadAsset<MouldItemComponent>("Handle Fist MIC.asset");
             MouldDefinition mouldDefinition_handleLargeCool = assetBundle.LoadAsset<MouldDefinition>("Handle Large Cool Mould.asset");
